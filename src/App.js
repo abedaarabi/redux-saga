@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "./App.css";
+import { Counter } from "./Counter";
+import { getPokemon } from "./redux/actions/pokemon";
 
 function App() {
+  const { counter } = useSelector((state) => state.counter);
+  const { loadingState, pokemon } = useSelector((state) => state.pokemon);
+  console.log(loadingState, pokemon);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getPokemon());
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>counter: {counter}</h2>
+      <Counter />
     </div>
   );
 }
