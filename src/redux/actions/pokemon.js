@@ -18,6 +18,7 @@ function pokemonResponseFailed() {
 function pokemonResponsePedding() {
   return { type: GET_POKEMON_PENDDING };
 }
+
 //calling on mount componenet (useEffect)
 export function getPokemon() {
   return async (dispatch, getState) => {
