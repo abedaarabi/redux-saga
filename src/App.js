@@ -8,7 +8,7 @@ import { getPokemonSaga } from "./redux/actions/sagaPokemon";
 function App() {
   const { counter } = useSelector((state) => state.counter);
   const { loadingState, pokemon } = useSelector((state) => state.sagaPokemon);
-  console.log(loadingState, pokemon);
+
   const dispatch = useDispatch();
 
   // React.useEffect(() => {
@@ -17,6 +17,7 @@ function App() {
 
   function handelPokemon() {
     dispatch(getPokemonSaga());
+    console.log(loadingState, pokemon);
   }
 
   return (

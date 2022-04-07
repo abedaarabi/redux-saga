@@ -15,7 +15,6 @@ export function sagaPokemonResponseFailed(error) {
   return { type: GET_POKEMON_FAILED, payload: error };
 }
 export function sagaPokemonResponsePedding(pendding) {
-  console.log(pendding);
   return { type: GET_POKEMON_PENDDING, pendding };
 }
 

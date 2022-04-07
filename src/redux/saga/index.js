@@ -18,6 +18,8 @@ function* getApiData() {
   }
 }
 
+const sags = [getApiData];
+
 export function* wtachSaga() {
-  yield takeLatest(GET_POKEMON, getApiData);
+  yield takeLatest(GET_POKEMON, ...sags);
 }
