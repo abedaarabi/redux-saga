@@ -11,11 +11,13 @@ const initialState = {
 export function sagaPokemonResponseSuccess(pokemon) {
   return { type: GET_POKEMON_SUCCESS, payload: pokemon };
 }
+
 export function sagaPokemonResponseFailed(error) {
   return { type: GET_POKEMON_FAILED, payload: error };
 }
+
 export function sagaPokemonResponsePedding(pendding) {
-  return { type: GET_POKEMON_PENDDING, pendding };
+  return { type: GET_POKEMON_PENDDING, payload: pendding };
 }
 
 export function getPokemonSaga() {

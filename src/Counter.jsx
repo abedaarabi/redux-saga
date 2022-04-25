@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { decremnet, increment } from "./redux/actions/counter";
+import { getForgeProjectsSaga } from "./redux/actions/forge";
+import { getPokemonSaga } from "./redux/actions/sagaPokemon";
 
 export const Counter = (props) => {
   const dispatch = useDispatch();
@@ -13,6 +15,12 @@ export const Counter = (props) => {
   const handelDecrement = () => {
     dispatch(decremnet(2));
   };
+
+  // React.useEffect(() => {
+  //   dispatch(getPokemonSaga());
+  //   dispatch(getForgeProjectsSaga());
+  // }, [dispatch]);
+  
 
   return (
     <div>

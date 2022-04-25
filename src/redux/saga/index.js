@@ -1,25 +1,67 @@
-import { takeLatest, takeEvery } from "redux-saga/effects";
+import { takeLatest, takeEvery, all, spawn, fork } from "redux-saga/effects";
 import { call, put } from "redux-saga/effects";
-import pokemonapi from "../api/pokemonApi";
+import pokemonapi, { forgeProjects } from "../api/pokemonApi";
 import {
   GET_POKEMON,
   sagaPokemonResponseFailed,
   sagaPokemonResponsePedding,
   sagaPokemonResponseSuccess,
 } from "../actions/sagaPokemon";
+import {
+  GET_FORGE,
+  sagaForgeResponseFailed,
+  sagaForgeResponsePedding,
+  sagaForgeResponseSuccess,
+} from "../actions/forge";
 
 function* getApiData() {
+  console.log("gerApi1");
+  yield put(sagaPokemonResponsePedding("pendding"));
   try {
-    yield put(sagaPokemonResponsePedding("pendding"));
-    const { data } = yield call(pokemonapi);
+    const { data } = yield call(pokemonapi) || {};
     yield put(sagaPokemonResponseSuccess(data));
   } catch (error) {
     yield put(sagaPokemonResponseFailed(error));
   }
 }
 
-const sags = [getApiData];
+function* getApiData2() {
+  yield put(sagaForgeResponsePedding("pending"));
+  try {
+    const { data } = yield call(forgeProjects) || [];
 
-export function* wtachSaga() {
-  yield takeLatest(GET_POKEMON, ...sags);
+    yield put(sagaForgeResponseSuccess(data));
+  } catch (error) {
+    yield put(sagaForgeResponseFailed(error));
+  }
 }
+
+function* sagaOne() {
+  yield takeLatest(GET_POKEMON, getApiData);
+}
+
+function* sagaTwo() {
+  yield takeEvery(GET_FORGE, getApiData2);
+}
+
+export function* rootSaga() {
+  const sagas = [sagaOne, sagaTwo];
+
+  yield all(
+    sagas.map((saga) =>
+      spawn(function* () {
+        while (true) {
+          try {
+            yield call(saga);
+            break;
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      })
+    )
+  );
+}
+
+//https://stackoverflow.com/questions/51855748/should-i-run-all-saga-when-launch-app
+//test

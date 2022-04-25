@@ -3,13 +3,21 @@ import createSagaMiddleware from "redux-saga";
 import countReducder from "../actions/counter";
 import thunk from "redux-thunk";
 import pokemon from "../actions/pokemon";
-import { wtachSaga } from "../saga";
+import { rootSaga, wtachSaga, wtachSaga2 } from "../saga";
 import SagaPokemonapiSaga from "../actions/sagaPokemon";
+import { forgeReducer, GET_FORGE } from "../actions/forge";
 const reducer = combineReducers({
   counter: countReducder,
-  pokemon: pokemon,
+  // pokemon: pokemon,
   sagaPokemon: SagaPokemonapiSaga,
+  forge: forgeReducer,
 });
+
+const action = (name) => {
+  return (lastName) => {
+    console.log(name + " " + lastName);
+  };
+};
 
 // function createMyThunkMiddleware() {
 //   return (store) => {
@@ -19,9 +27,18 @@ const reducer = combineReducers({
 //       return (action) => {
 //         console.log("from Thunk middlware", action);
 //         if (typeof action === "function") {
-//           const actionObj = action(store);
+// const action =  (dispatch) => {
+//   dispatch(pokemonResponsePedding());
+//   try {
+//     const response = await api();
+//     dispatch(pokemonResponseSuccess(response.data));
+//   } catch (error) {
+//     dispatch(pokemonResponseFailed());
+//   }
+// };
+//           action(store.dispatch);
 
-//           return actionObj;
+//
 //         } else {
 //           next(action);
 //         }
@@ -35,12 +52,26 @@ const reducer = combineReducers({
 // const store = createStore(reducer, {}, applyMiddleware(...thunkMiddleWare));
 
 // patchStoreToAddLogging(store);
+
+const myMdl = (store) => (next) => (action) => {
+  if (action.type === GET_FORGE) {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("Are you sure you wanna fetch forge projects")) {
+      next(action);
+    }
+  } else {
+    next(action);
+  }
+};
+
+// console.log(myMdl());
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [sagaMiddleware];
+const middleware = [myMdl, sagaMiddleware];
 
 const store = createStore(reducer, {}, applyMiddleware(...middleware));
-sagaMiddleware.run(wtachSaga);
+
+sagaMiddleware.run(rootSaga);
 // setting a listner for any dispatch
 
 export default store;
