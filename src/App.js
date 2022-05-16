@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { Counter } from "./Counter";
-import { getForgeProjectsSaga } from "./redux/actions/forge";
+import { getForgeProjectsSaga } from "./redux/reducers/forge";
 
-import { getPokemonSaga } from "./redux/actions/sagaPokemon";
+import { getPokemonSaga } from "./redux/reducers/sagaPokemon";
 
 function App() {
   const { counter } = useSelector((state) => state.counter);

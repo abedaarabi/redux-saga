@@ -8,9 +8,13 @@ export function increment() {
   return { type: INCREMENT };
 }
 
+
+
 export function decremnet(id) {
   return { type: DECREMENT, payload: id };
 }
+
+
 
 export default function number(state = initialState, { type }) {
   switch (type) {

@@ -6,13 +6,13 @@ import {
   sagaPokemonResponseFailed,
   sagaPokemonResponsePedding,
   sagaPokemonResponseSuccess,
-} from "../actions/sagaPokemon";
+} from "../reducers/sagaPokemon";
 import {
   GET_FORGE,
   sagaForgeResponseFailed,
   sagaForgeResponsePedding,
   sagaForgeResponseSuccess,
-} from "../actions/forge";
+} from "../reducers/forge";
 
 function* getApiData() {
   console.log("gerApi1");
@@ -41,7 +41,7 @@ function* sagaOne() {
 }
 
 function* sagaTwo() {
-  yield takeEvery(GET_FORGE, getApiData2);
+  yield takeLatest(GET_FORGE, getApiData2);
 }
 
 export function* rootSaga() {

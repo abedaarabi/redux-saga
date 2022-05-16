@@ -1,16 +1,18 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
-import countReducder from "../actions/counter";
+import countReducder from "../reducers/counter";
 import thunk from "redux-thunk";
-import pokemon from "../actions/pokemon";
+import pokemon from "../reducers/pokemon";
 import { rootSaga, wtachSaga, wtachSaga2 } from "../saga";
-import SagaPokemonapiSaga from "../actions/sagaPokemon";
-import { forgeReducer, GET_FORGE } from "../actions/forge";
+import SagaPokemonapiSaga from "../reducers/sagaPokemon";
+import { forgeReducer, GET_FORGE } from "../reducers/forge";
+import elementReducer from "../reducers/elementsReducer";
 const reducer = combineReducers({
   counter: countReducder,
   // pokemon: pokemon,
   sagaPokemon: SagaPokemonapiSaga,
   forge: forgeReducer,
+  elementReducer: elementReducer,
 });
 
 const action = (name) => {
@@ -53,21 +55,20 @@ const action = (name) => {
 
 // patchStoreToAddLogging(store);
 
-const myMdl = (store) => (next) => (action) => {
-  if (action.type === GET_FORGE) {
-    // eslint-disable-next-line no-restricted-globals
-    if (confirm("Are you sure you wanna fetch forge projects")) {
-      next(action);
-    }
-  } else {
-    next(action);
-  }
-};
+// const myMdl = (store) => (next) => (action) => {
+//   if (action.type === GET_FORGE) {
+//     // eslint-disable-next-line no-restricted-globals
+//     if (confirm("Are you sure you wanna fetch forge projects")) {
+//       next(action);
+//     }
+//   } else {
+//     next(action);
+//   }
+// };
 
-// console.log(myMdl());
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [myMdl, sagaMiddleware];
+const middleware = [sagaMiddleware];
 
 const store = createStore(reducer, {}, applyMiddleware(...middleware));
 
