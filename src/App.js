@@ -13,10 +13,10 @@ function App() {
   const { loadingState, pokemon } = state.sagaPokemon;
   const { loadingForgeState, projects } = state.forge;
 
-  console.group("App component");
-  console.log(loadingState, pokemon);
-  console.log(loadingForgeState, projects);
-  console.groupEnd();
+  // console.group("App component");
+  // console.log(loadingState, pokemon);
+  // console.log(loadingForgeState, projects);
+  // console.groupEnd();
   const dispatch = useDispatch();
 
   function handelPokemon() {

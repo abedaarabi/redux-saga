@@ -4,6 +4,7 @@ const THREE_D_ELEMENT = "THREE_D_ELEMENT";
 const GET_ELEMENT_NAME = "GET_ELEMENT_NAME";
 const FIND_ELEMENT_BY_NAME = "FIND_ELEMENT_BY_NAME";
 const DELETE_BY_ID = "DELETE_BY_ID";
+const CHANGE_NAME = "CHANGE_NAME";
 
 const initialState = {
   AllElements: {},
@@ -30,16 +31,27 @@ export function findElementByName(name) {
 export function deleteItem(id) {
   return { type: DELETE_BY_ID, payload: id };
 }
+export function changeName(value) {
+  return { type: CHANGE_NAME, payload: value };
+}
 
 export default function elementReducer(state = initialState, action) {
-  console.log("abed", action);
   switch (action.type) {
     case THREE_D_ELEMENT:
       return { ...state, AllElements: action.payload };
     case DELETE_BY_ID:
-      const id = action.payload;
-      delete state.AllElements[id];
+      const externalId = action.payload;
+      delete state.AllElements[externalId];
 
+      return { ...state };
+    case CHANGE_NAME:
+      const { id, name } = action.payload;
+
+      state.AllElements[id] = {
+        ...state.AllElements,
+        name: name,
+        externalId: id,
+      };
       return { ...state };
     default:
       return state;
