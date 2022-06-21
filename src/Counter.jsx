@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { detach } from "redux-saga";
+import { testCom } from "./funToCom";
 import { decremnet as decrement, increment } from "./redux/reducers/counter";
 import {
   getAllElement,
@@ -10,7 +11,25 @@ import {
   changeName,
 } from "./redux/reducers/elementsReducer";
 
+import * as abed from "./redux/reducers/sagaPokemon";
+import * as abed1 from "./redux/reducers/sagaPokemon";
+
+const getName = (arr, text) => {
+  return arr.find((i) => i.includes(text));
+};
+
 export const Counter = (props) => {
+  const Number = testCom(12);
+
+  const result = Object.values(abed);
+  const result1 = Object.values(abed1);
+
+  const all = Array.from(new Set([...result, ...result1]));
+
+  console.log(all);
+
+  console.log(getName(all, "GET_POKEMON"));
+
   const dispatch = useDispatch();
   let arr = [];
   let doneArr = [];
@@ -23,13 +42,18 @@ export const Counter = (props) => {
   const handelIncrement = () => {
     dispatch(increment());
   };
+
+  const before = performance.now();
   const allElement = Object.values(elementReducer.AllElements);
+
   allElement.forEach((i) => {
     arr.push(false);
 
     doneArr.push(false);
   });
+  const after = performance.now() - before;
 
+  console.log(after, "performance");
   const handelDecrement = () => {
     dispatch(decrement(2));
     dispatch(findElementByName("Beton vægelement - 150mm"));
@@ -63,7 +87,7 @@ export const Counter = (props) => {
   React.useEffect(() => {
     // dispatch(getPokemonSaga());
     // dispatch(getForgeProjectsSaga());
-    dispatch(getAllElement());
+    // dispatch(getAllElement());
   }, [dispatch]);
 
   return (
@@ -71,6 +95,8 @@ export const Counter = (props) => {
       <div>
         <button onClick={handelIncrement}>increment</button>
         <button onClick={handelDecrement}>decrement</button>
+
+        <Number />
       </div>
 
       <div>

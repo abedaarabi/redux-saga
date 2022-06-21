@@ -14,6 +14,8 @@ import {
   sagaForgeResponseSuccess,
 } from "../reducers/forge";
 
+
+
 function* getApiData() {
   console.log("gerApi1");
   yield put(sagaPokemonResponsePedding("pendding"));
@@ -36,13 +38,16 @@ function* getApiData2() {
   }
 }
 
+
 function* sagaOne() {
   yield takeLatest(GET_POKEMON, getApiData);
 }
 
+
 function* sagaTwo() {
   yield takeLatest(GET_FORGE, getApiData2);
 }
+
 
 export function* rootSaga() {
   const sagas = [sagaOne, sagaTwo];
@@ -62,6 +67,7 @@ export function* rootSaga() {
     )
   );
 }
+
 
 //https://stackoverflow.com/questions/51855748/should-i-run-all-saga-when-launch-app
 //test

@@ -5,6 +5,8 @@ import { Counter } from "./Counter";
 import { getForgeProjectsSaga } from "./redux/reducers/forge";
 
 import { getPokemonSaga } from "./redux/reducers/sagaPokemon";
+import SelectedElement from "./SelectedElement";
+import { ReducerComponent } from "./TGTG/ReducerComponent";
 
 function App() {
   const { counter } = useSelector((state) => state.counter);
@@ -14,7 +16,7 @@ function App() {
   const { loadingForgeState, projects } = state.forge;
 
   // console.group("App component");
-  // console.log(loadingState, pokemon);
+
   // console.log(loadingForgeState, projects);
   // console.groupEnd();
   const dispatch = useDispatch();
@@ -29,10 +31,12 @@ function App() {
 
   return (
     <div className="App">
+      <SelectedElement />
       <h2>counter: {counter}</h2>
       <Counter />
       <button onClick={handelPokemon}>handelPokemon API</button>
       <button onClick={handelForge}>Forge API</button>
+      {/* <ReducerComponent /> */}
     </div>
   );
 }
