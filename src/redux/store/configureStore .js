@@ -7,6 +7,7 @@ import { rootSaga, wtachSaga, wtachSaga2 } from "../saga";
 import SagaPokemonapiSaga from "../reducers/sagaPokemon";
 import { forgeReducer, GET_FORGE } from "../reducers/forge";
 import elementReducer from "../reducers/elementsReducer";
+
 const reducer = combineReducers({
   counter: countReducder,
   // pokemon: pokemon,
@@ -76,3 +77,4 @@ sagaMiddleware.run(rootSaga);
 // setting a listner for any dispatch
 
 export default store;
+

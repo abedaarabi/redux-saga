@@ -28,6 +28,30 @@
   color: #61dafb;
 }
 
+.date {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.value {
+  text-align: center;
+  margin-left: 2rem;
+  height: 80px;
+  width: 120px;
+  border: #282c34 1px solid;
+  cursor: pointer;
+  color: aliceblue;
+  background-color: rgb(242, 235, 234);
+}
+.value p {
+  background-color: #ef7b7b;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  width: 110px;
+  margin: auto;
+  margin-top: 10px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
